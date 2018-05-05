@@ -1,0 +1,5 @@
+{
+"weather": "https://api.openweathermap.org/data/2.5/weather?q='+location1+'&appid=ec00b38b419c8d7924c32f7fbe9ccbe9",
+"fx":"https://api.fixer.io/latest?base=USD"
+    
+}

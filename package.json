@@ -1,0 +1,32 @@
+{
+  "name": "para",
+  "version": "1.4.13",
+  "description": "para NEM",
+  "author": "https://github.com/risabhsharma71",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.4",
+    "express": "^4.14.0",
+    "fast-csv": "^2.4.1",
+    "jsonfile": "^4.0.0",
+    "jsonwebtoken": "^7.1.9",
+    "mongoose": "^4.6.0",
+    "morgan": "^1.7.0",
+    "nem-sdk": "*",
+    "request-promise": "^4.2.2"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/risabh-rapidqube/parameteric-insurance-nem-.git"
+  },
+  "keywords": [
+    "nem"
+  ],
+  "devDependencies": {
+    "eslint-config-rallycoding": "^3.2.0"
+  }
+}
