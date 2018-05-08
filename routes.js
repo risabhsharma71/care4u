@@ -15,8 +15,10 @@ const register = require('./functions/register');
  const fetchcontract = require('./functions/getcontracts');
  const payer=require("./functions/payer");
  const mockWeather = require('./functions/mockWeather');
+ const Hospital= require("./functions/Hospital")
 var user = require('./models/accounts');
 var config = require('./config.json')
+var oneday= require('./functions/oneday')
 //==============================================mock services========================================//
 module.exports = router => {
 router.post('/mock',cors(),function(req,res){
@@ -76,8 +78,6 @@ var endpoint =nem.model.objects.create("endpoint")("http://b1.nem.foundation", "
                         "TotalClaimedAmount":req.body.TotalClaimedAmount};
                         var HospitalName=req.body.HospitalName
                         var status = req.body.status;
-        
-             console.log(conditions,status);
          
              contractJs.createContract(conditions,HospitalName,status)
              .then(result => {
@@ -164,12 +164,31 @@ router.get('/payerpay',cors(),function(req,res){
          .then(result => {
                     console.log(result)
                     res.status(result.status).json({
-                        message:result.message 
+                        patients:result.message 
                     });
 
                 }) .catch(err => res.status(err.status).json({
                     message: err.message
                 }))
             });
+//=======================================fortis dashboard api====================================================//
+router.post("/HospitalDashboard",cors(),function(req,res){
+    var HospitalName= req.body.HospitalName;
+    Hospital.DashBoard(HospitalName).then(reports=>{
+        res.send({
+            "status":200,
+            "patients":reports.Patients
+        })
+    })
+})
+
+//=========================================24hrs trigger===============================================//
+router.get("/24hrs",cors(),(req,res)=>{
+    oneday.oneday().then((results)=>{
+            console.log(results)
+            res.send({"status":200,
+        "message":results.message})
+    })
+})
 
         }

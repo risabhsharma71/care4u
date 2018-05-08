@@ -9,7 +9,7 @@ var fs =require("fs")
 var jsonfile = require('jsonfile')
 var file = require("../payerInsuree.json")
 var file1= require("../payer_provider.json")
-var addressProvider1="MDQ52TVBHGD5HAQF2NL27WPVS5I7JZ7KQXF4FDAS";
+var AddressOfProvider1="MDQ52TVBHGD5HAQF2NL27WPVS5I7JZ7KQXF4FDAS";
 var addressofProvider2="MAN3JN6GBWNT5XJOND5BEYG4SQRR2B6YJ3BSU6PR";
 var report;
 
@@ -20,8 +20,8 @@ exports.mock =(obj) =>{
     return new Promise(async(resolve,reject)=>{
 
             
-          patientData.find({status:"initiated"})
-          .then(result =>{
+        let result= await  patientData.find({status:"initiated"})
+        //  .then(result =>{
         for(let i=0;i<result.length;i++){
             var HospitalName=result[i]._doc.HospitalName;
 //===========================if the total bill is less than preproposed amount then check of each hospital===========================//            
@@ -41,15 +41,14 @@ exports.mock =(obj) =>{
             var endpoint =nem.model.objects.create("endpoint")("http://b1.nem.foundation", "7895");    
             // Create a common object holding key
             var common = nem.model.objects.create("common")("123","8de216c125beb4d25d484919ad5168b67a3274dc9746e0d42d94f409a756ae7b");
-            
             // Create an un-prepared transfer transaction object
            
-                var transferTransaction = nem.model.objects.create("transferTransaction")(AddressOfProvider1, 0,report);
+                var transferTransaction = nem.model.objects.create("transferTransaction")(AddressOfProvider1, 0,"auto Approved  ");
             // Prepare the transfer transaction object
             var transactionEntity = nem.model.transactions.prepare("transferTransaction")(common, transferTransaction, nem.model.network.data.mijin.id);
             
             //Serialize transfer transaction and announce
-                nem.model.transactions.send(common, transactionEntity, endpoint)
+               var ee= nem.model.transactions.send(common, transactionEntity, endpoint)
                      resolve(patientData.remove({_id:result[i].id}))
         
                    }
@@ -64,19 +63,19 @@ exports.mock =(obj) =>{
                 });
              data.save()
            
-            // var endpoint =nem.model.objects.create("endpoint")("http://b1.nem.foundation", "7895");    
-            // // Create a common object holding key
-            // var common = nem.model.objects.create("common")("123","8de216c125beb4d25d484919ad5168b67a3274dc9746e0d42d94f409a756ae7b");
+            var endpoint =nem.model.objects.create("endpoint")("http://b1.nem.foundation", "7895");    
+            // Create a common object holding key
+            var common = nem.model.objects.create("common")("123","8de216c125beb4d25d484919ad5168b67a3274dc9746e0d42d94f409a756ae7b");
             
-            // // Create an un-prepared transfer transaction object
+            // Create an un-prepared transfer transaction object
            
-            //     var transferTransaction = nem.model.objects.create("transferTransaction")(AddressOfProvider2, 0,report);
-            // // Prepare the transfer transaction object
-            // var transactionEntity = nem.model.transactions.prepare("transferTransaction")(common, transferTransaction, nem.model.network.data.mijin.id);
+                var transferTransaction = nem.model.objects.create("transferTransaction")(addressofProvider2, 0,"auto Approved");
+            // Prepare the transfer transaction object
+            var transactionEntity = nem.model.transactions.prepare("transferTransaction")(common, transferTransaction, nem.model.network.data.mijin.id);
             
-            // //Serialize transfer transaction and announce
-            //     nem.model.transactions.send(common, transactionEntity, endpoint)
-
+            //Serialize transfer transaction and announce
+              var ee=  nem.model.transactions.send(common, transactionEntity, endpoint)
+                console.log("eeeeeeeeeeeeeeeeeeeeeeeeee==========================>",ee)
             resolve(patientData.remove({_id:result[i].id}))
            
         }
@@ -95,7 +94,6 @@ exports.mock =(obj) =>{
           
               created_at: new Date()
             });
-            console.log(data)
             data.save()
             .then(() => (console.log("saved in tpa schema")))
             .catch(err => {
@@ -173,9 +171,6 @@ if(HospitalName=="Apollo"){
 
         }
     }
-   
-        })
-       
 
         resolve({"status":200,
         "message":"dataset completed waiting for new dataset"})
