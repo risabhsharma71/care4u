@@ -6,11 +6,17 @@ const Schema = mongoose.Schema;
 
 const TpaSchema = mongoose.Schema({
     
-    patientData:{ type: Object, unique: true },
+    patientData: Array,
     status:String,
+    submitID:String,
     HospitalName:String,
     AmountPayerWouldPay:Number,
     AmountuserHavetopay:Number,
+    Expenses:Number,
+    message:String,
+    rapidID:String,
+    txHash:String,
+    previousHashes:Array,
     created_at: Date
     
 });

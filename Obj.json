@@ -1,36 +1,84 @@
+{"patientData":[{"PATEINT_DETAILS": [{
+	"NAME": "name"
+}, {
+	"AGE": "26"
+},
 {
-	"PATEINT_DETAILS": {
-		"NAME": "SHAH BEENA",
-		"AGE": 54,
-		"DOA":"04/03/2014",
-		"REF_DOC": "Dr ranade",
-		"Treating_Consultant": "dr_ranade",
-		"IPD_No": "fugilgui",
-		"MLC": "",
-		"SEX": "",
-		"DOD": ""
+	"DOA": "DOA"
+},
+{
+	"REF_DOC": "Dr ranade"
+},
+{
+	"IPD_No": "IPD"
+},
+{
+	"MLC": ""
+},
+{
+	"SEX": "female"
+},
+{
+	"DOD": "Discharge"
+}
+]
+},
+
+{
+"Treatment": [{
+		"DAIGONIS": "pregnency"
 	},
-	"Treatment": {
-		"DAIGONIS": "pregnency",
-		"Type_Of_Discharge": "",
-		"Cheif_Complaints_On_Admission": "",
-		"Past_History_with_Allergy": "",
-		"Personal_History": "",
-		"Family_History": "",
-		"Menstrual_History": "",
-		"Obstretric_History": "",
-		"Genral_Examination":"",
-		"Systematic_Examination":""
+	{
+		"Cheif_Complaints_On_Admission": ""
 	},
-	"Package_details": {
-		"Investigations": "",
-		"Procedure_done": "",
-		"BaBys_Details": "",
-		"Course_in_Hospital_And_condition": "",
-		"Treatment_Given": "",
-		"Treatment_Adviced": "",
-		"Follow_Up_Visit": ""
-    },
-	"TotalClaimedAmount":"100000",
-	"hospitalName":"fortis"
+	{
+		"Past_History_with_Allergy": ""
+	},
+	{
+		"Personal_History": ""
+	},
+	{
+		"Family_History": ""
+	},
+	{
+		"Menstrual_History": ""
+	},
+	{
+		"Obstretric_History": ""
+	},
+	{
+		"Genral_Examination": ""
+	},
+	{
+		"Systematic_Examination": ""
+	}
+]
+}, {
+"Package_details": [{
+		"Investigations": "done"
+	},
+	{
+		"BaBys_Details": "normal"
+	},
+	{
+		"Course_in_Hospital_And_condition": "good"
+	},
+	{
+		"Treatment_Given": "given properly"
+	},
+	{
+		"Treatment_Adviced": "given"
+	},
+	{
+		"Follow_Up_Visit": "completed"
+	},
+	{
+		"Procedure_done": "done"
+	}
+]}],
+
+"TotalClaimedAmount":10000,
+"status": "initiated",
+"HospitalName": "Fortis",
+"SubmitId":"sfsfdsfsdfsdf"
 }

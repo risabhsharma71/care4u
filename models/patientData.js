@@ -6,10 +6,11 @@ const Schema = mongoose.Schema;
 
 const patientDataSchema = mongoose.Schema({
     
-    patientData:Object,
+    patientData:Array,
     HospitalName:String,
+    submitID:String,
     status:String,
-    
+    TotalClaimedAmount:Number,
     created_at: String
     
 });

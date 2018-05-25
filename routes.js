@@ -1,8 +1,5 @@
 
-
 'use strict';
-
-
 
 var crypto = require('crypto');
 var fs = require('fs');
@@ -19,6 +16,8 @@ const register = require('./functions/register');
 var user = require('./models/accounts');
 var config = require('./config.json')
 var oneday= require('./functions/oneday')
+var recordHistory= require('./functions/history')
+var updateDischargeSummary= require("./functions/updateDischargeSummary")
 //==============================================mock services========================================//
 module.exports = router => {
 router.post('/mock',cors(),function(req,res){
@@ -71,15 +70,14 @@ var endpoint =nem.model.objects.create("endpoint")("http://b1.nem.foundation", "
         });
 //=============================================create discharge summary==============================================================//
         router.post('/createContract', cors(),function(req,res){
-                         const i =1;
-        var conditions ={"PATEINT_DETAILS":req.body.PATEINT_DETAILS,
-                        "Treatment":req.body.Treatment,
-                        "Package_details":req.body.Package_details,
-                        "TotalClaimedAmount":req.body.TotalClaimedAmount};
-                        var HospitalName=req.body.HospitalName
+
+        var conditions =req.body.patientData;
+                        var HospitalName=req.body.HospitalName;
+                        var submitID=req.body.SubmitId;
                         var status = req.body.status;
+                        var TotalClaimedAmount=req.body.TotalClaimedAmount
          
-             contractJs.createContract(conditions,HospitalName,status)
+             contractJs.createContract(conditions,HospitalName,submitID,status,TotalClaimedAmount)
              .then(result => {
                 
         
@@ -112,7 +110,7 @@ router.get('/trigger',cors(),function(req,res){
              mockWeather.mock(obj)
              .then(result => {
                         console.log(result)
-                        res.status(result.status).json({
+                        res.status(200).json({
                          message: "conditions satisfied for the users below"
                         });
     
@@ -145,12 +143,13 @@ router.get('/Tpa',cors(),function(req,res){
 router.post('/Tpaupdate',cors(),function(req,res){
    var status= req.body.status;
    var id=req.body.id;
+   var message=req.body.message;
 
-    tpaNem.mocknem(status,id)
+    tpaNem.mocknem(status,id,message)
          .then(result => {
                     console.log(result)
-                    res.status(result.status).json({
-                        message:result.message 
+                    res.status(200).json({
+                        message:"dataset triggered "
                     });
                 }) .catch(err => res.status(err.status).json({
                     message: err.message
@@ -177,7 +176,7 @@ router.post("/HospitalDashboard",cors(),function(req,res){
     Hospital.DashBoard(HospitalName).then(reports=>{
         res.send({
             "status":200,
-            "patients":reports.Patients
+            "patients":reports.message
         })
     })
 })
@@ -190,5 +189,33 @@ router.get("/24hrs",cors(),(req,res)=>{
         "message":results.message})
     })
 })
+//===============================history api==============================================================//
+router.post("/history",cors(),(req,res)=>{
+    var id=req.body.id
+    recordHistory.history(id).then(result=>{
+        
+            console.log(result)
+            res.status(result.status).json({
+                history:result.message 
+            });
+
+        }) .catch(err => res.status(err.status).json({
+            message: err.message
+        }))
+    });
+//=================update discharge summary=======================================//
+router.post("/updateDischargeSummary",cors(),(req,res)=>{
+    var id=req.body.id
+    updateDischargeSummary.update(id).then(result=>{
+        
+            console.log(result)
+            res.status(result.status).json({
+                history:result.message 
+            });
+
+        }) .catch(err => res.status(err.status).json({
+            message: err.message
+        }))
+    });
 
         }
